@@ -1,9 +1,8 @@
-from typing import Dict, Optional, Any, Literal
+from typing import Dict, Optional, Any
 from pydantic import BaseModel
 from ..schemas.search import SearchStatusResponse
-
-
-JobStatus = Literal["queued", "running", "completed", "failed"]
+from ..schemas.common import JobStatus
+from ..core.config import settings
 
 
 class InMemoryJob(BaseModel):
@@ -11,6 +10,7 @@ class InMemoryJob(BaseModel):
     status: JobStatus
     result: Optional[Dict[str, Any]] = None
     error: Optional[str] = None
+    questions: Optional[list[str]] = None
 
 
 _JOBS: Dict[str, InMemoryJob] = {}
@@ -34,5 +34,6 @@ def get_job(job_id: str) -> Optional[SearchStatusResponse]:
         status=job.status,
         result=job.result,
         error=job.error,
+        questions=job.questions,
     )
 

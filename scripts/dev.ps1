@@ -16,4 +16,5 @@ if (-not (Test-Path .\.venv\Scripts\Activate.ps1)) {
 
 .\.venv\Scripts\Activate.ps1
 uvicorn backend.app.main:app --reload --port 8000
+# Run tests: .\backend\scripts\dev.ps1 -Test
 
